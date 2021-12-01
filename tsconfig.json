@@ -9,6 +9,6 @@
     "strictPropertyInitialization": false,
     "target": "es5"
   },
-  "include": ["src"],
+  "include": ["src", "./environment.d.ts"],
   "exclude": ["node_modules", "**/__tests__/*"]
 }
