@@ -1,6 +1,6 @@
 {
   "name": "safe2pay-node",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "A Node library for Safe2Pay integration",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
