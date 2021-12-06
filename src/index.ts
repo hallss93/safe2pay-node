@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { pixDynamic, pixStatic, debitCard } from './controllers/payments';
+import { pixDynamic, pixStatic, debitCard, creditCard } from './controllers/payments';
 import {
   InstallmentValue,
   cancelCredit,
@@ -49,6 +49,7 @@ class Safe2Pay {
 Safe2Pay.prototype.pixDynamic = pixDynamic;
 Safe2Pay.prototype.pixStatic = pixStatic;
 Safe2Pay.prototype.debitCard = debitCard;
+Safe2Pay.prototype.creditCard = creditCard;
 
 /* Transações */
 Safe2Pay.prototype.merchantPaymentMethodList = merchantPaymentMethodList;
