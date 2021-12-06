@@ -3,7 +3,7 @@
 
 ## Recursos disponíveis
 
-* [ ] Consulta de transações.
+* [x] Consulta de transações.
 * [ ] Tokenização de cartão.
 * [ ] Pagamentos.
     * [ ] Boleto bancário.
