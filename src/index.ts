@@ -1,10 +1,11 @@
 import { AxiosResponse } from 'axios';
 import { pixDynamic, pixStatic } from './controllers/payments';
 import {
+  InstallmentValue,
   cancelCredit,
   cancelDebit,
   cancelPix,
-  InstallmentValue,
+  captureCredit,
   merchantPaymentMethodList,
 } from './controllers/transactions';
 import CancelResponseSuccess from './models/CancelResponseSuccess';
@@ -34,6 +35,10 @@ class Safe2Pay {
     amount: number,
   ) => Promise<AxiosResponse<ResponseError | CancelResponseSuccess>>;
   public cancelDebit: (idTransaction: number) => Promise<AxiosResponse<ResponseError | CancelResponseSuccess>>;
+  public captureCredit: (
+    idTransaction: number,
+    amount?: number,
+  ) => Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>>;
 }
 
 /* Pagamentos */
@@ -48,5 +53,6 @@ Safe2Pay.prototype.installmentValue = InstallmentValue;
 Safe2Pay.prototype.cancelPix = cancelPix;
 Safe2Pay.prototype.cancelCredit = cancelCredit;
 Safe2Pay.prototype.cancelDebit = cancelDebit;
+Safe2Pay.prototype.captureCredit = captureCredit;
 
 export default Safe2Pay;
