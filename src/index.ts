@@ -6,10 +6,12 @@ import {
   cancelDebit,
   cancelPix,
   captureCredit,
+  consultTransaction,
   merchantPaymentMethodList,
 } from './controllers/transactions';
 import CancelResponseSuccess from './models/CancelResponseSuccess';
 import CreditCard, { ICreditCardResponseSuccess } from './models/CreditCard';
+import { IDebitCardResponseSuccess } from './models/DebitCard';
 import { IInstallmentValueResponseError, IInstallmentValueResponseSuccess } from './models/Installment';
 import { IMerchantPaymentMethodResponseSuccess } from './models/MerchantPaymentMethod';
 import PixDynamic, { IPixDynamicResponseSuccess } from './models/PixDynamic';
@@ -39,6 +41,7 @@ class Safe2Pay {
     idTransaction: number,
     amount?: number,
   ) => Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>>;
+  public consultTransaction: (idTransaction: number) => Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess>>;
 }
 
 /* Pagamentos */
@@ -48,11 +51,14 @@ Safe2Pay.prototype.pixStatic = pixStatic;
 /* Transações */
 Safe2Pay.prototype.merchantPaymentMethodList = merchantPaymentMethodList;
 Safe2Pay.prototype.installmentValue = InstallmentValue;
+Safe2Pay.prototype.consultTransaction = consultTransaction;
 
 /* Estorno */
 Safe2Pay.prototype.cancelPix = cancelPix;
 Safe2Pay.prototype.cancelCredit = cancelCredit;
 Safe2Pay.prototype.cancelDebit = cancelDebit;
+
+/* Captura */
 Safe2Pay.prototype.captureCredit = captureCredit;
 
 export default Safe2Pay;

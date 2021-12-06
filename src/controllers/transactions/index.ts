@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { ICreditCardResponseSuccess } from '../../models/CreditCard';
+import { IDebitCardResponseSuccess } from '../../models/DebitCard';
+import { IPixDynamicResponseSuccess } from '../../models/PixDynamic';
 import CancelResponseSuccess from './../../models/CancelResponseSuccess';
 import { IInstallmentValueResponseError, IInstallmentValueResponseSuccess } from './../../models/Installment';
 import { IMerchantPaymentMethodResponseSuccess } from './../../models/MerchantPaymentMethod';
@@ -13,6 +15,7 @@ enum URLS {
   DEBITCARDCANCEL = 'DebitCard/Cancel/',
   MERCHANTPAYMENTMETHODLIST = 'MerchantPaymentMethod/List',
   PIXCANCEL = 'Pix/Cancel/',
+  CONSULTTRANSACTION = 'transaction/Get'
 }
 
 export const merchantPaymentMethodList = async (): Promise<
@@ -51,4 +54,10 @@ export const captureCredit = async (
   amount?: number,
 ): Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>> => {
   return await axios.put(`${URLS.CREDITCAPTURE}/${idTransaction}/${amount}`);
+};
+
+export const consultTransaction = async (
+  idTransaction: number,
+): Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess>> => {
+  return await axios.get(`${URLS.CONSULTTRANSACTION}?Id=${idTransaction}`);
 };
