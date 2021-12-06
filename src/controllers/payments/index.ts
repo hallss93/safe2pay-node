@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import DebitCard, { IDebitCardResponseSuccess } from '../../models/DebitCard';
 import CreditCard, { ICreditCardResponseSuccess } from './../../models/CreditCard';
 import PixDynamic, { IPixDynamicResponseSuccess } from './../../models/PixDynamic';
 import PixStatic, { IPixStaticResponseSuccess } from './../../models/PixStatic';
@@ -23,5 +24,11 @@ export const pixStatic = async (body: PixStatic): Promise<AxiosResponse<Response
 export const creditCard = async (
   body: CreditCard,
 ): Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>> => {
+  return await axios.post(URLS.PAYMENT, { data: body });
+};
+
+export const debitCard = async (
+  body: DebitCard,
+): Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess>> => {
   return await axios.post(URLS.PAYMENT, { data: body });
 };

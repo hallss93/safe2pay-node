@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { pixDynamic, pixStatic } from './controllers/payments';
+import { pixDynamic, pixStatic, debitCard } from './controllers/payments';
 import {
   InstallmentValue,
   cancelCredit,
@@ -11,7 +11,7 @@ import {
 } from './controllers/transactions';
 import CancelResponseSuccess from './models/CancelResponseSuccess';
 import CreditCard, { ICreditCardResponseSuccess } from './models/CreditCard';
-import { IDebitCardResponseSuccess } from './models/DebitCard';
+import DebitCard, { IDebitCardResponseSuccess } from './models/DebitCard';
 import { IInstallmentValueResponseError, IInstallmentValueResponseSuccess } from './models/Installment';
 import { IMerchantPaymentMethodResponseSuccess } from './models/MerchantPaymentMethod';
 import PixDynamic, { IPixDynamicResponseSuccess } from './models/PixDynamic';
@@ -23,6 +23,7 @@ class Safe2Pay {
   public pixDynamic: (body: PixDynamic) => Promise<AxiosResponse<ResponseError | IPixDynamicResponseSuccess>>;
   public pixStatic: (body: PixStatic) => Promise<AxiosResponse<ResponseError | IPixStaticResponseSuccess>>;
   public creditCard: (body: CreditCard) => Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>>;
+  public debitCard: (body: DebitCard) => Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess>>;
 
   /* Transações */
   public merchantPaymentMethodList: () => Promise<AxiosResponse<ResponseError | IMerchantPaymentMethodResponseSuccess>>;
@@ -47,6 +48,7 @@ class Safe2Pay {
 /* Pagamentos */
 Safe2Pay.prototype.pixDynamic = pixDynamic;
 Safe2Pay.prototype.pixStatic = pixStatic;
+Safe2Pay.prototype.debitCard = debitCard;
 
 /* Transações */
 Safe2Pay.prototype.merchantPaymentMethodList = merchantPaymentMethodList;
