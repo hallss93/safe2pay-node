@@ -1,5 +1,5 @@
 import ICustomer from './Customer';
-import PaymentObject from './PaymentObject';
+import IPaymentObject from './PaymentObject';
 import Products from './Products';
 import Split from './Split';
 
@@ -16,7 +16,7 @@ export default interface IDebitCard {
   Meta: any;
   Customer: ICustomer;
   Products: Products[];
-  PaymentObject: PaymentObject;
+  PaymentObject: IPaymentObject;
   Splits: Split[];
 }
 
@@ -30,6 +30,52 @@ export interface IDebitCardResponseSuccess {
     DebitCard: {
       CardNumber: string;
       Brand: number;
+    };
+  };
+  HasError: boolean;
+}
+
+export interface IDebitCardTransitionUpdateResponseSuccess {
+  ResponseDetail: {
+    IdTransaction: number;
+    Status: string;
+    Message: string;
+    Application: string;
+    Vendor: string;
+    Reference: string;
+    PaymentDate: string;
+    CreatedDate: string;
+    Amount: number;
+    NetValue: number;
+    DiscountAmount: number;
+    TaxValue: number;
+    PaymentMethod: string;
+    Customer: ICustomer,
+    AmountPayment: number;
+    PaymentObject: IPaymentObject;
+  };
+  HasError: false;
+}
+
+export interface IDebitCardArrayResponseSuccess {
+  ResponseDetail: {
+    Objects: {
+      IdTransaction: number;
+      Status: string;
+      Message: string;
+      Application: string;
+      Vendor: string;
+      Reference: string;
+      PaymentDate: string;
+      CreatedDate: string;
+      Amount: number;
+      NetValue: number;
+      DiscountAmount: number;
+      TaxValue: number;
+      PaymentMethod: string;
+      Customer: ICustomer,
+      AmountPayment: number;
+      PaymentObject: IPaymentObject;
     };
   };
   HasError: boolean;

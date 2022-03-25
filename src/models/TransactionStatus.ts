@@ -1,0 +1,11 @@
+export enum ITransactionStatus {
+  PENDENTE = 1,
+  PROCESSAMENTO = 2,
+  AUTORIZADO = 3,
+  EMDISPUTA = 5,
+  DEVOLVIDO = 6,
+  BAIXADO = 7,
+  RECUSADO = 8,
+  LIBERADO = 11,
+  CHARGEBACK = 13,
+}
