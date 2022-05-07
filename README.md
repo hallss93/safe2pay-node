@@ -36,7 +36,7 @@ Para integrar com sua aplicação, basta definir variável de ambiente em `.env`
 #### Exemplo de Pagamento via Pix Estático
 
 ```typescript
-import Safe2Pay from './../../safe2pay';
+import Safe2Pay from 'safe2pay-node';
 
 const client = new Safe2Pay();
 
@@ -50,7 +50,7 @@ client.pixStatic({
 #### Exemplo de Consulta de opções de pagamento
 
 ```typescript
-import Safe2Pay from './../../safe2pay';
+import Safe2Pay from 'safe2pay-node';
 
 const client = new Safe2Pay();
 
