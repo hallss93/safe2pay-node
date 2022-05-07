@@ -2,7 +2,7 @@
 
 ## Recursos disponíveis
 
-- [ ] Tokenização de cartão.
+- [x] Tokenização de cartão.
 - [ ] Pagamentos.
   - [ ] Boleto bancário.
   - [x] Cartão de crédito.
