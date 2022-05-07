@@ -13,14 +13,24 @@ import {
   merchantPaymentMethodList,
 } from './controllers/transactions';
 import CancelResponseSuccess from './models/CancelResponseSuccess';
-import CreditCard, { ICreditCardArrayResponseSuccess, ICreditCardResponseSuccess, ICreditCardTransitionUpdateResponseSuccess } from './models/CreditCard';
-import DebitCard, { IDebitCardArrayResponseSuccess, IDebitCardResponseSuccess, IDebitCardTransitionUpdateResponseSuccess } from './models/DebitCard';
+import CreditCard, {
+  ICreditCardArrayResponseSuccess,
+  ICreditCardResponseSuccess,
+  ICreditCardTransitionUpdateResponseSuccess,
+} from './models/CreditCard';
+import DebitCard, {
+  IDebitCardArrayResponseSuccess,
+  IDebitCardResponseSuccess,
+  IDebitCardTransitionUpdateResponseSuccess,
+} from './models/DebitCard';
 import { IInstallmentValueResponseError, IInstallmentValueResponseSuccess } from './models/Installment';
 import { IMerchantPaymentMethodResponseSuccess } from './models/MerchantPaymentMethod';
 import PixDynamic, { IPixDynamicResponseSuccess } from './models/PixDynamic';
 import PixStatic, { IPixStaticResponseSuccess } from './models/PixStatic';
 import ResponseError from './models/ResponseError';
 import { ITransactionStatus } from './models/TransactionStatus';
+import { TokenRequest, TokenResponse } from './models/Token';
+import { createToken } from './controllers/token';
 
 class Safe2Pay {
   /* Pagamentos */
@@ -31,17 +41,21 @@ class Safe2Pay {
 
   /* Transações */
   public merchantPaymentMethodList: () => Promise<AxiosResponse<ResponseError | IMerchantPaymentMethodResponseSuccess>>;
-  public installmentValue: (amount: number) => Promise<AxiosResponse<IInstallmentValueResponseError | IInstallmentValueResponseSuccess>>;
-  public consultTransaction: (idTransaction: number) => Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess>>;
-  public updateTransaction: (idTransaction: number, isUpdateReference: boolean, isUpdateCallBackUrl: boolean, reference: string, callbackUrl: string) => Promise<AxiosResponse<ResponseError | ICreditCardTransitionUpdateResponseSuccess | IDebitCardTransitionUpdateResponseSuccess>>;
-  public updateStatusTransaction: (idTransaction: number, idTransactionStatus: ITransactionStatus) => Promise<AxiosResponse<ResponseError | ICreditCardTransitionUpdateResponseSuccess | IDebitCardTransitionUpdateResponseSuccess>>;
-  public listTransaction: (PageNumber: string, RowsPerPage: string, CreatedDateInitial: string, CreatedDateEnd: string, PaymentDateInitial: string, PaymentDateEnd: string, AmountInitial: string, AmountEnd: string, Object: IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess) => Promise<AxiosResponse<ResponseError | IDebitCardArrayResponseSuccess | ICreditCardArrayResponseSuccess>>;
+  public installmentValue: (amount: number,) => Promise<AxiosResponse<IInstallmentValueResponseError | IInstallmentValueResponseSuccess>>;
+  public consultTransaction: (idTransaction: number,) => Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess>>;
+  public updateTransaction: (idTransaction: number, isUpdateReference: boolean, isUpdateCallBackUrl: boolean, reference: string, callbackUrl: string,) => Promise<AxiosResponse<ResponseError | ICreditCardTransitionUpdateResponseSuccess | IDebitCardTransitionUpdateResponseSuccess>>;
+  public updateStatusTransaction: (idTransaction: number, idTransactionStatus: ITransactionStatus,) => Promise<AxiosResponse<ResponseError | ICreditCardTransitionUpdateResponseSuccess | IDebitCardTransitionUpdateResponseSuccess>
+  >;
+  public listTransaction: (PageNumber: string, RowsPerPage: string, CreatedDateInitial: string, CreatedDateEnd: string, PaymentDateInitial: string, PaymentDateEnd: string, AmountInitial: string, AmountEnd: string, Object: IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess,) => Promise<AxiosResponse<ResponseError | IDebitCardArrayResponseSuccess | ICreditCardArrayResponseSuccess>>;
 
   /* Estorno */
   public cancelPix: (idTransaction: number) => Promise<AxiosResponse<ResponseError | CancelResponseSuccess>>;
   public cancelCredit: (idTransaction: number, amount: number,) => Promise<AxiosResponse<ResponseError | CancelResponseSuccess>>;
   public cancelDebit: (idTransaction: number) => Promise<AxiosResponse<ResponseError | CancelResponseSuccess>>;
   public captureCredit: (idTransaction: number, amount?: number,) => Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>>;
+
+  /* Tokenização */
+  public createToken: (body: TokenRequest) => Promise<AxiosResponse<ResponseError | TokenResponse>>;
 }
 
 /* Pagamentos */
@@ -65,5 +79,9 @@ Safe2Pay.prototype.cancelDebit = cancelDebit;
 
 /* Captura */
 Safe2Pay.prototype.captureCredit = captureCredit;
+
+/* Tokenização */
+
+Safe2Pay.prototype.createToken = createToken;
 
 export default Safe2Pay;

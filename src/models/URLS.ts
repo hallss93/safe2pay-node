@@ -8,5 +8,8 @@ export enum URLS {
   CONSULTTRANSACTION = 'Transaction/Get',
   UPDATETRANSACTION = 'Transaction/Update',
   UPDATESTATUSTRANSACTION = 'Transaction/UpdateSandboxTransaction',
-  LISTTRANSACTION = 'Transaction/List'
+  LISTTRANSACTION = 'Transaction/List',
+  CREATETOKEN = 'Token',
+  LISTTOKEN = 'Token/List',
+  DELETETOKEN = 'Token/delete',
 }

@@ -51,7 +51,7 @@ export interface ICreditCardTransitionUpdateResponseSuccess {
     DiscountAmount: number;
     TaxValue: number;
     PaymentMethod: string;
-    Customer: ICustomer,
+    Customer: ICustomer;
     AmountPayment: number;
     PaymentObject: IPaymentObject;
   };
@@ -74,7 +74,7 @@ export interface ICreditCardArrayResponseSuccess {
       DiscountAmount: number;
       TaxValue: number;
       PaymentMethod: string;
-      Customer: ICustomer,
+      Customer: ICustomer;
       AmountPayment: number;
       PaymentObject: IPaymentObject;
     };

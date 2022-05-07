@@ -27,8 +27,6 @@ export const creditCard = async (
   return await axios.post(URLS.PAYMENT, { data: body });
 };
 
-export const debitCard = async (
-  body: DebitCard,
-): Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess>> => {
+export const debitCard = async (body: DebitCard): Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess>> => {
   return await axios.post(URLS.PAYMENT, { data: body });
 };

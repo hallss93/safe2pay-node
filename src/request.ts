@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv';
 dotenv.config();
 import axios, { AxiosRequestConfig } from 'axios';
 (axios.defaults as any).baseURL = 'https://payment.safe2pay.com.br/v2/';
@@ -10,8 +10,8 @@ function tokenHandler(config: AxiosRequestConfig) {
 }
 
 axios.interceptors.request.use(
-  config => tokenHandler(config),
-  error => {
+  (config) => tokenHandler(config),
+  (error) => {
     return Promise.reject(error);
   },
 );
