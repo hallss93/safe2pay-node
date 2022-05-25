@@ -1,42 +1,38 @@
 import { AxiosResponse } from 'axios';
-import { pixDynamic, pixStatic, debitCard, creditCard } from './controllers/payments';
+import { creditCard, debitCard, pixDynamic, pixStatic } from './controllers/payments';
+import { createToken } from './controllers/token';
 import {
-  InstallmentValue,
   cancelCredit,
   cancelDebit,
   cancelPix,
   captureCredit,
-  consultTransaction,
-  updateTransaction,
-  updateStatusTransaction,
-  listTransaction,
-  merchantPaymentMethodList,
+  consultTransaction, InstallmentValue, listTransaction,
+  merchantPaymentMethodList, updateStatusTransaction, updateTransaction
 } from './controllers/transactions';
 import CancelResponseSuccess from './models/CancelResponseSuccess';
 import CreditCard, {
   ICreditCardArrayResponseSuccess,
   ICreditCardResponseSuccess,
-  ICreditCardTransitionUpdateResponseSuccess,
+  ICreditCardTransitionUpdateResponseSuccess
 } from './models/CreditCard';
 import DebitCard, {
   IDebitCardArrayResponseSuccess,
   IDebitCardResponseSuccess,
-  IDebitCardTransitionUpdateResponseSuccess,
+  IDebitCardTransitionUpdateResponseSuccess
 } from './models/DebitCard';
 import { IInstallmentValueResponseError, IInstallmentValueResponseSuccess } from './models/Installment';
 import { IMerchantPaymentMethodResponseSuccess } from './models/MerchantPaymentMethod';
 import PixDynamic, { IPixDynamicResponseSuccess } from './models/PixDynamic';
 import PixStatic, { IPixStaticResponseSuccess } from './models/PixStatic';
 import ResponseError from './models/ResponseError';
-import { ITransactionStatus } from './models/TransactionStatus';
 import { TokenRequest, TokenResponse } from './models/Token';
-import { createToken } from './controllers/token';
+import { ITransactionStatus } from './models/TransactionStatus';
 
 class Safe2Pay {
   /* Pagamentos */
   public pixDynamic: (body: PixDynamic) => Promise<AxiosResponse<ResponseError | IPixDynamicResponseSuccess>>;
   public pixStatic: (body: PixStatic) => Promise<AxiosResponse<ResponseError | IPixStaticResponseSuccess>>;
-  public creditCard: (body: CreditCard) => Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>>;
+  public creditCard: (body: CreditCard) => Promise<ResponseError | ICreditCardResponseSuccess>;
   public debitCard: (body: DebitCard) => Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess>>;
 
   /* Transações */

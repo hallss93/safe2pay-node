@@ -21,10 +21,13 @@ export const pixStatic = async (body: PixStatic): Promise<AxiosResponse<Response
   return await axios.post(URLS.STATICPIX, { data: body });
 };
 
-export const creditCard = async (
-  body: CreditCard,
-): Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>> => {
-  return await axios.post(URLS.PAYMENT, { data: body });
+export const creditCard = async (body: CreditCard): Promise<ResponseError | ICreditCardResponseSuccess> => {
+  try {
+    const res = await axios.post(URLS.PAYMENT, body);
+    return res.data;
+  } catch (e) {
+    return (e as AxiosResponse).data as ResponseError;
+  }
 };
 
 export const debitCard = async (body: DebitCard): Promise<AxiosResponse<ResponseError | IDebitCardResponseSuccess>> => {

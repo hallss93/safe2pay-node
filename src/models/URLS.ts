@@ -1,5 +1,5 @@
 export enum URLS {
-  CREDITCAPTURE = 'CreditCard/Capture/',
+  CREDITCAPTURE = 'CreditCard/Capture',
   CREDITCARDCANCEL = 'CreditCard/Cancel/',
   CREDITCARDINSTALLMENTVALUE = 'CreditCard/InstallmentValue/?',
   DEBITCARDCANCEL = 'DebitCard/Cancel/',

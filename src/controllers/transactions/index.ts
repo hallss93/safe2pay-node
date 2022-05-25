@@ -11,12 +11,12 @@ import {
 } from '../../models/DebitCard';
 import { IPixDynamicResponseSuccess } from '../../models/PixDynamic';
 import { ITransactionStatus } from '../../models/TransactionStatus';
+import { URLS } from '../../models/URLS';
 import CancelResponseSuccess from './../../models/CancelResponseSuccess';
 import { IInstallmentValueResponseError, IInstallmentValueResponseSuccess } from './../../models/Installment';
 import { IMerchantPaymentMethodResponseSuccess } from './../../models/MerchantPaymentMethod';
 import ResponseError from './../../models/ResponseError';
-import axios from './../../request';
-import { URLS } from '../../models/URLS';
+import axios from './../../request-api';
 
 export const merchantPaymentMethodList = async (): Promise<
   AxiosResponse<ResponseError | IMerchantPaymentMethodResponseSuccess>
@@ -53,7 +53,14 @@ export const captureCredit = async (
   idTransaction: number,
   amount?: number,
 ): Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>> => {
-  return await axios.put(`${URLS.CREDITCAPTURE}/${idTransaction}/${amount}`);
+  try {
+    const url = amount ? `${URLS.CREDITCAPTURE}/${idTransaction}/${amount}` : `${URLS.CREDITCAPTURE}/${idTransaction}`;
+    const { data } = await axios.put(url);
+    return data;
+  } catch (e) {
+    console.log(e);
+    return e as any;
+  }
 };
 
 export const updateTransaction = async (

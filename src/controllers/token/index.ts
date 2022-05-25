@@ -8,7 +8,10 @@ export const createToken = async (body: TokenRequest): Promise<AxiosResponse<Res
   return await axios.post(URLS.CREATETOKEN, { data: body });
 };
 
-export const listTokens = async (PageNumber: number, RowsPerPage: number): Promise<AxiosResponse<ResponseError | TokenList>> => {
+export const listTokens = async (
+  PageNumber: number,
+  RowsPerPage: number,
+): Promise<AxiosResponse<ResponseError | TokenList>> => {
   return await axios.get(`${URLS.LISTTOKEN}?PageNumber=${PageNumber}&RowsPerPage=${RowsPerPage}`);
 };
 
