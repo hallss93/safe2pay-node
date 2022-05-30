@@ -16,37 +16,38 @@ import CancelResponseSuccess from './../../models/CancelResponseSuccess';
 import { IInstallmentValueResponseError, IInstallmentValueResponseSuccess } from './../../models/Installment';
 import { IMerchantPaymentMethodResponseSuccess } from './../../models/MerchantPaymentMethod';
 import ResponseError from './../../models/ResponseError';
-import axios from './../../request-api';
+import { getAxiosApiServer } from './../../request';
 
+const BASE_URL = 'https://api.safe2pay.com.br/v2/';
 export const merchantPaymentMethodList = async (): Promise<
   AxiosResponse<ResponseError | IMerchantPaymentMethodResponseSuccess>
 > => {
-  return await axios.get(URLS.MERCHANTPAYMENTMETHODLIST);
+  return await getAxiosApiServer(BASE_URL).get(URLS.MERCHANTPAYMENTMETHODLIST);
 };
 
 export const InstallmentValue = async (
   amount: number,
 ): Promise<AxiosResponse<IInstallmentValueResponseError | IInstallmentValueResponseSuccess>> => {
-  return await axios.get(`${URLS.MERCHANTPAYMENTMETHODLIST}amount=${amount}`);
+  return await getAxiosApiServer(BASE_URL).get(`${URLS.MERCHANTPAYMENTMETHODLIST}amount=${amount}`);
 };
 
 export const cancelPix = async (
   idTransaction: number,
 ): Promise<AxiosResponse<ResponseError | CancelResponseSuccess>> => {
-  return await axios.delete(`${URLS.PIXCANCEL}/${idTransaction}`);
+  return await getAxiosApiServer(BASE_URL).delete(`${URLS.PIXCANCEL}/${idTransaction}`);
 };
 
 export const cancelCredit = async (
   idTransaction: number,
   amount: number,
 ): Promise<AxiosResponse<ResponseError | CancelResponseSuccess>> => {
-  return await axios.delete(`${URLS.CREDITCARDCANCEL}/${idTransaction}/${amount}`);
+  return await getAxiosApiServer(BASE_URL).delete(`${URLS.CREDITCARDCANCEL}/${idTransaction}/${amount}`);
 };
 
 export const cancelDebit = async (
   idTransaction: number,
 ): Promise<AxiosResponse<ResponseError | CancelResponseSuccess>> => {
-  return await axios.delete(`${URLS.DEBITCARDCANCEL}/${idTransaction}`);
+  return await getAxiosApiServer(BASE_URL).delete(`${URLS.DEBITCARDCANCEL}/${idTransaction}`);
 };
 
 export const captureCredit = async (
@@ -55,7 +56,7 @@ export const captureCredit = async (
 ): Promise<AxiosResponse<ResponseError | ICreditCardResponseSuccess>> => {
   try {
     const url = amount ? `${URLS.CREDITCAPTURE}/${idTransaction}/${amount}` : `${URLS.CREDITCAPTURE}/${idTransaction}`;
-    const { data } = await axios.put(url);
+    const { data } = await getAxiosApiServer(BASE_URL).put(url);
     return data;
   } catch (e) {
     console.log(e);
@@ -72,7 +73,7 @@ export const updateTransaction = async (
 ): Promise<
   AxiosResponse<ResponseError | ICreditCardTransitionUpdateResponseSuccess | IDebitCardTransitionUpdateResponseSuccess>
 > => {
-  return await axios.put(
+  return await getAxiosApiServer(BASE_URL).put(
     `${URLS.UPDATETRANSACTION}?isUpdateReference=${isUpdateReference}&isUpdateCallBackUrl=${isUpdateCallBackUrl}`,
     { Id, Reference, CallBackUrl },
   );
@@ -84,7 +85,7 @@ export const updateStatusTransaction = async (
 ): Promise<
   AxiosResponse<ResponseError | ICreditCardTransitionUpdateResponseSuccess | IDebitCardTransitionUpdateResponseSuccess>
 > => {
-  return await axios.put(
+  return await getAxiosApiServer(BASE_URL).put(
     `${URLS.UPDATESTATUSTRANSACTION}?idTransaction=${idTransaction}&idTransactionStatus=${idTransactionStatus}`,
   );
 };
@@ -94,7 +95,7 @@ export const consultTransaction = async (
 ): Promise<
   AxiosResponse<ResponseError | IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess>
 > => {
-  return await axios.get(`${URLS.CONSULTTRANSACTION}?Id=${idTransaction}`);
+  return await getAxiosApiServer(BASE_URL).get(`${URLS.CONSULTTRANSACTION}?Id=${idTransaction}`);
 };
 
 export const listTransaction = async (
@@ -108,7 +109,7 @@ export const listTransaction = async (
   AmountEnd: string,
   Object: IDebitCardResponseSuccess | ICreditCardResponseSuccess | IPixDynamicResponseSuccess,
 ): Promise<AxiosResponse<ResponseError | IDebitCardArrayResponseSuccess | ICreditCardArrayResponseSuccess>> => {
-  return await axios.get(
+  return await getAxiosApiServer(BASE_URL).get(
     `${URLS.LISTTRANSACTION}?PageNumber=${PageNumber}&RowsPerPage=${RowsPerPage}&CreatedDateInitial=${CreatedDateInitial}&CreatedDateEnd=${CreatedDateEnd}&PaymentDateInitial=${PaymentDateInitial}&PaymentDateEnd=${PaymentDateEnd}&AmountInitial=${AmountInitial}&AmountEnd=${AmountEnd}&Object=${Object}`,
   );
 };
