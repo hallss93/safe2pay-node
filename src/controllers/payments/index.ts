@@ -5,6 +5,7 @@ import PixDynamic, { IPixDynamicResponseSuccess } from './../../models/PixDynami
 import PixStatic, { IPixStaticResponseSuccess } from './../../models/PixStatic';
 import ResponseError from './../../models/ResponseError';
 import axios from './../../request';
+(axios.defaults as any).baseURL = 'https://payment.safe2pay.com.br/v2/';
 
 enum URLS {
   PAYMENT = 'Payment',
